@@ -48,6 +48,7 @@ The default value of EXAMPLE-OG-FILES is specified by `examples-default-org-file
 
 (defvar examples-headline-and-src-blocks-hashtable (make-hash-table :test #'equal))
 
+;;;###autoload
 (defun examples-clear-hash ()
   "Clear hashtable."
   (interactive)

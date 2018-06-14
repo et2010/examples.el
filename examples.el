@@ -2,6 +2,7 @@
 (require 'org)
 (require 'org-element)
 (require 'yasnippet)
+
 (defgroup examples nil
   "examples group"
   :prefix "examples-")
@@ -36,7 +37,7 @@ The default value of EXAMPLE-OG-FILES is specified by `examples-default-org-file
       (mapc (lambda (file)
               (insert-file-contents file)
               (newline))
-            example-org-files) 
+            example-org-files)
       (let ((headline-and-blocks (org-element-map (org-element-parse-buffer) 'headline
                                    (lambda (ele)
                                      (cons (org-element-property :raw-value ele)
@@ -77,7 +78,8 @@ The default value of EXAMPLE-OG-FILES is specified by `examples-default-org-file
   (unless yas-minor-mode
     (yas-minor-mode 1))
   (let* ((languages (examples-get-corresponding-languages-by-major-mode major-mode))
-         (headline-and-blocks (apply #'examples-get-headline-and-src-blocks-memorize languages example-org-files))
+         (headline-and-blocks (apply #'examples-get-headline-and-src-blocks-memorize
+                                     languages example-org-files))
          (headlines (mapcar #'car headline-and-blocks))
          (headline (completing-read "example:" headlines))
          (src-blocks (cdr (assoc-string headline headline-and-blocks)))
@@ -92,3 +94,4 @@ The default value of EXAMPLE-OG-FILES is specified by `examples-default-org-file
                                                       (format "{%d:%s}" idx desc)))
                                                   src-block))))
 
+(provide 'examples)
